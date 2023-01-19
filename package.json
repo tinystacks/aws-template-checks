@@ -42,11 +42,7 @@
   "homepage": "https://github.com/tinystacks/aws-quota-checks#readme",
   "devDependencies": {
     "@tinystacks/iac-utils": "^0.0.14-local.30",
-    "@types/cached": "^6.0.0",
     "@types/jest": "^28.1.7",
-    "@types/lodash.get": "^4.4.7",
-    "@types/lodash.isnil": "^4.0.7",
-    "@types/lodash.isplainobject": "^4.0.7",
     "@types/node": "^18.11.15",
     "@typescript-eslint/eslint-plugin": "^5.33.1",
     "@typescript-eslint/parser": "^5.33.1",
@@ -65,6 +61,7 @@
     "@aws-sdk/client-s3": "^3.252.0",
     "@aws-sdk/client-service-quotas": "^3.252.0",
     "@aws-sdk/credential-providers": "^3.252.0",
+    "@types/lodash.isempty": "^4.4.7",
     "lodash.isempty": "^4.4.0"
   }
 }
