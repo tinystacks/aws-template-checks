@@ -7,7 +7,7 @@ import {
   QuotaError,
   VPC,
   getStandardResourceType
-} from '@tinystacks/iac-utils';
+} from '@tinystacks/predeploy-infra';
 import { getCredentials } from './utils/aws';
 
 async function checkVpcQuota (resources: ResourceDiffRecord[]) {

@@ -6,7 +6,7 @@ import {
   getStandardResourceType,
   VPC,
   EIP
-} from '@tinystacks/iac-utils';
+} from '@tinystacks/predeploy-infra';
 import {
   checkEipQuota
 } from './eip-quota-checks';

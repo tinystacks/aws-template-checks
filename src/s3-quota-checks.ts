@@ -7,7 +7,7 @@ import {
   QuotaError,
   S3_BUCKET,
   getStandardResourceType
-} from '@tinystacks/iac-utils';
+} from '@tinystacks/predeploy-infra';
 import { getCredentials } from './utils/aws';
 
 async function checkS3Quota (resources: ResourceDiffRecord[]) {
