@@ -1,5 +1,5 @@
 {
-  "name": "@tinystacks/aws-quota-checks",
+  "name": "@tinystacks/aws-template-checks",
   "version": "0.0.1-local.1",
   "description": "",
   "main": "dist/index.js",
@@ -32,14 +32,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tinystacks/aws-quota-checks.git"
+    "url": "git+https://github.com/tinystacks/aws-template-checks.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/tinystacks/aws-quota-checks/issues"
+    "url": "https://github.com/tinystacks/aws-template-checks/issues"
   },
-  "homepage": "https://github.com/tinystacks/aws-quota-checks#readme",
+  "homepage": "https://github.com/tinystacks/aws-template-checks#readme",
   "devDependencies": {
     "@tinystacks/predeploy-infra": "^1.0.1-local.1",
     "@types/jest": "^28.1.7",
