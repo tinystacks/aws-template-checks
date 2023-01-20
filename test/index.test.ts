@@ -12,7 +12,7 @@ jest.mock('../src/eip-quota-checks.ts', () => ({
   checkEipQuota: mockCheckEipQuota
 }));
 
-import { TinyStacksAwsQuotaChecker } from '../src';
+import { TinyStacksAwsTemplateChecks } from '../src';
 import {
   CloudformationTypes,
   TerraformTypes,
@@ -28,8 +28,13 @@ const {
   TF_INTERNET_GATEWAY
 } = TerraformTypes;
 
-describe('TinyStacksAwsQuotaChecker', () => {
-  const quotaChecker = new TinyStacksAwsQuotaChecker();
+describe('TinyStacksAwsTemplateChecks', () => {
+  const templateChecker = new TinyStacksAwsTemplateChecks();
+  beforeEach(() => {
+    mockCheckEipQuota.mockResolvedValue(undefined);
+    mockCheckS3Quota.mockResolvedValue(undefined);
+    mockCheckVpcQuota.mockResolvedValue(undefined);
+  });
   afterEach(() => {
     // for mocks
     jest.resetAllMocks();
@@ -41,7 +46,7 @@ describe('TinyStacksAwsQuotaChecker', () => {
       resourceType: TF_INTERNET_GATEWAY
     } as ResourceDiffRecord;
 
-    await quotaChecker.checkQuota(TF_INTERNET_GATEWAY, [mockResource], {});
+    await templateChecker.checkTemplate([mockResource], {});
 
     expect(mockCheckS3Quota).not.toBeCalled();
     expect(mockCheckEipQuota).not.toBeCalled();
@@ -52,7 +57,7 @@ describe('TinyStacksAwsQuotaChecker', () => {
       resourceType: CFN_S3_BUCKET
     } as ResourceDiffRecord;
 
-    await quotaChecker.checkQuota(CFN_S3_BUCKET, [mockResource], {});
+    await templateChecker.checkTemplate([mockResource], {});
 
     expect(mockCheckS3Quota).toBeCalled();
     expect(mockCheckS3Quota).toBeCalledWith([mockResource]);
@@ -64,7 +69,7 @@ describe('TinyStacksAwsQuotaChecker', () => {
       resourceType: CFN_EIP
     } as ResourceDiffRecord;
 
-    await quotaChecker.checkQuota(CFN_EIP, [mockResource], {});
+    await templateChecker.checkTemplate([mockResource], {});
 
     expect(mockCheckS3Quota).not.toBeCalled();
     expect(mockCheckEipQuota).toBeCalled();
@@ -76,7 +81,7 @@ describe('TinyStacksAwsQuotaChecker', () => {
       resourceType: TF_VPC
     } as ResourceDiffRecord;
 
-    await quotaChecker.checkQuota(TF_VPC, [mockResource], {});
+    await templateChecker.checkTemplate([mockResource], {});
 
     expect(mockCheckS3Quota).not.toBeCalled();
     expect(mockCheckEipQuota).not.toBeCalled();
