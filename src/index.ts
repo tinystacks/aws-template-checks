@@ -1,13 +1,13 @@
 import {
   ResourceDiffRecord,
-  SmokeTestOptions,
+  CheckOptions,
   TemplateChecks,
   S3_BUCKET,
   getStandardResourceType,
   VPC,
   EIP,
   logger
-} from '@tinystacks/predeploy-infra';
+} from '@tinystacks/precloud';
 import {
   checkEipQuota
 } from './eip-quota-checks';
@@ -51,7 +51,7 @@ class TinyStacksAwsTemplateChecks extends TemplateChecks {
     return quotaCheckErrors;
   }
   
-  async checkTemplate (resources: ResourceDiffRecord[], _config: SmokeTestOptions) {
+  async checkTemplate (resources: ResourceDiffRecord[], _config: CheckOptions) {
     const quotaErrors = await this.checkQuotas(resources);
     quotaErrors.forEach(logger.cliError, logger);
   }

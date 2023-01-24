@@ -5,8 +5,8 @@ const mockEc2 = jest.fn();
 const mockGetAwsDefaultServiceQuota = jest.fn();
 const mockServiceQuotas = jest.fn();
 
-jest.mock('@tinystacks/predeploy-infra', () => {
-  const original = jest.requireActual('@tinystacks/predeploy-infra');
+jest.mock('@tinystacks/precloud', () => {
+  const original = jest.requireActual('@tinystacks/precloud');
   return {
     logger: {
       info: mockLoggerInfo
@@ -38,7 +38,7 @@ import {
   ChangeType,
   IacFormat,
   ResourceDiffRecord
-} from '@tinystacks/predeploy-infra';
+} from '@tinystacks/precloud';
 import {
   checkEipQuota
 } from '../src/eip-quota-checks';

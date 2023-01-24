@@ -7,7 +7,7 @@ import {
   EIP,
   getStandardResourceType,
   QuotaError
-} from '@tinystacks/predeploy-infra';
+} from '@tinystacks/precloud';
 import { getCredentials } from './utils/aws';
 
 async function checkEipQuota (resources: ResourceDiffRecord[]) {
