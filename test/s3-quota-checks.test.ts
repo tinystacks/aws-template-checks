@@ -3,7 +3,7 @@ const mockGetCredentials = jest.fn();
 const mockListBuckets = jest.fn();
 const mockHeadBucket = jest.fn();
 const mockS3 = jest.fn();
-const mockGetServiceQuota = jest.fn();
+const mockGetAWSDefaultServiceQuota = jest.fn(); mockGetAWSDefaultServiceQuota
 const mockServiceQuotas = jest.fn();
 
 jest.mock('@tinystacks/precloud', () => {
@@ -51,7 +51,7 @@ describe('s3 smoke tests', () => {
       headBucket: mockHeadBucket
     });
     mockServiceQuotas.mockReturnValue({
-      getServiceQuota: mockGetServiceQuota
+      getAWSDefaultServiceQuota: mockGetAWSDefaultServiceQuota
     });
   });
 
@@ -85,7 +85,7 @@ describe('s3 smoke tests', () => {
         }
       } as unknown as ResourceDiffRecord;
 
-      mockGetServiceQuota.mockResolvedValueOnce({
+      mockGetAWSDefaultServiceQuota.mockResolvedValueOnce({
         Quota: {
           Value: 100
         }
@@ -99,7 +99,7 @@ describe('s3 smoke tests', () => {
       expect(mockLoggerInfo).toBeCalled();
       expect(mockLoggerInfo).toBeCalledWith('Checking S3 bucket service quota...');
       expect(mockGetCredentials).toBeCalled();
-      expect(mockGetServiceQuota).toBeCalled();
+      expect(mockGetAWSDefaultServiceQuota).toBeCalled();
       expect(mockListBuckets).toBeCalled();
     });
     it('throws a QuotaError if new bucket would exceed quota limit', async () => {
@@ -112,7 +112,7 @@ describe('s3 smoke tests', () => {
         }
       } as unknown as ResourceDiffRecord;
       
-      mockGetServiceQuota.mockResolvedValueOnce({
+      mockGetAWSDefaultServiceQuota.mockResolvedValueOnce({
         Quota: {
           Value: 100
         }
@@ -130,7 +130,7 @@ describe('s3 smoke tests', () => {
         expect(mockLoggerInfo).toBeCalledTimes(1);
         expect(mockLoggerInfo).toBeCalledWith('Checking S3 bucket service quota...');
         expect(mockGetCredentials).toBeCalled();
-        expect(mockGetServiceQuota).toBeCalled();
+        expect(mockGetAWSDefaultServiceQuota).toBeCalled();
         expect(mockListBuckets).toBeCalled();
 
         expect(thrownError).not.toBeUndefined();
