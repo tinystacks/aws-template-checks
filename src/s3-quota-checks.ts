@@ -25,6 +25,11 @@ async function checkS3Quota (resources: ResourceDiffRecord[]) {
   const config = { credentials: await getCredentials() };
 
   const quotaClient = new ServiceQuotas(config);
+  /**
+   * Only the default quota can be requested, requesting the applied quota results in a NoSuchResourceException
+   * Source: https://repost.aws/questions/QUPb4JLtvsTJ6gaYeNn1KcqQ/aws-cli-service-quotas-results-in-error
+   * Check for yourself: aws service-quotas get-service-quota --service-code s3 --quota-code L-DC2B2D3D;
+   * */
   const quotaResponse = await quotaClient.getAWSDefaultServiceQuota({
     ServiceCode: 's3',
     QuotaCode: 'L-DC2B2D3D'

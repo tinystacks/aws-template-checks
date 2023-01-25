@@ -25,7 +25,7 @@ async function checkEipQuota (resources: ResourceDiffRecord[]) {
   const config = { credentials: await getCredentials() };
 
   const quotaClient = new ServiceQuotas(config);
-  const quotaResponse = await quotaClient.getAWSDefaultServiceQuota({
+  const quotaResponse = await quotaClient.getServiceQuota({
     ServiceCode: 'ec2',
     QuotaCode: 'L-0263D0A3'
   });

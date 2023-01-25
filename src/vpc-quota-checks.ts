@@ -25,7 +25,7 @@ async function checkVpcQuota (resources: ResourceDiffRecord[]) {
   const config = { credentials: await getCredentials() };
 
   const quotaClient = new ServiceQuotas(config);
-  const quotaResponse = await quotaClient.getAWSDefaultServiceQuota({
+  const quotaResponse = await quotaClient.getServiceQuota({
     ServiceCode: 'vpc',
     QuotaCode: 'L-F678F1CE'
   });
