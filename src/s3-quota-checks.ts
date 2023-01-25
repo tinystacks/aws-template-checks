@@ -25,7 +25,7 @@ async function checkS3Quota (resources: ResourceDiffRecord[]) {
   const config = { credentials: await getCredentials() };
 
   const quotaClient = new ServiceQuotas(config);
-  const quotaResponse = await quotaClient.getAWSDefaultServiceQuota({
+  const quotaResponse = await quotaClient.getServiceQuota({
     ServiceCode: 's3',
     QuotaCode: 'L-DC2B2D3D'
   });

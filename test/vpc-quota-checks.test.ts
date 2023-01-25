@@ -2,7 +2,7 @@ const mockLoggerInfo = jest.fn();
 const mockGetCredentials = jest.fn();
 const mockDescribeVpcs = jest.fn();
 const mockEc2 = jest.fn();
-const mockGetAwsDefaultServiceQuota = jest.fn();
+const mockGetServiceQuota = jest.fn();
 const mockServiceQuotas = jest.fn();
 
 jest.mock('@tinystacks/precloud', () => {
@@ -49,7 +49,7 @@ describe('vpc smoke tests', () => {
       describeVpcs: mockDescribeVpcs
     });
     mockServiceQuotas.mockReturnValue({
-      getAWSDefaultServiceQuota: mockGetAwsDefaultServiceQuota
+      getServiceQuota: mockGetServiceQuota
     });
   });
 
@@ -71,7 +71,7 @@ describe('vpc smoke tests', () => {
       expect(mockLoggerInfo).not.toBeCalled();
       expect(mockGetCredentials).not.toBeCalled();
       expect(mockServiceQuotas).not.toBeCalled();
-      expect(mockGetAwsDefaultServiceQuota).not.toBeCalled();
+      expect(mockGetServiceQuota).not.toBeCalled();
       expect(mockEc2).not.toBeCalled();
       expect(mockDescribeVpcs).not.toBeCalled();
     });
@@ -85,7 +85,7 @@ describe('vpc smoke tests', () => {
         }
       } as unknown as ResourceDiffRecord;
 
-      mockGetAwsDefaultServiceQuota.mockResolvedValueOnce({
+      mockGetServiceQuota.mockResolvedValueOnce({
         Quota: {
           Value: 5
         }
@@ -100,7 +100,7 @@ describe('vpc smoke tests', () => {
       expect(mockLoggerInfo).toBeCalled();
       expect(mockLoggerInfo).toBeCalledWith('Checking VPC service quota...');
       expect(mockGetCredentials).toBeCalled();
-      expect(mockGetAwsDefaultServiceQuota).toBeCalled();
+      expect(mockGetServiceQuota).toBeCalled();
       expect(mockDescribeVpcs).toBeCalled();
     });
     it('throws a QuotaError if new vpc would exceed quota limit', async () => {
@@ -113,7 +113,7 @@ describe('vpc smoke tests', () => {
         }
       } as unknown as ResourceDiffRecord;
       
-      mockGetAwsDefaultServiceQuota.mockResolvedValueOnce({
+      mockGetServiceQuota.mockResolvedValueOnce({
         Quota: {
           Value: 5
         }
@@ -131,7 +131,7 @@ describe('vpc smoke tests', () => {
         expect(mockLoggerInfo).toBeCalled();
         expect(mockLoggerInfo).toBeCalledWith('Checking VPC service quota...');
         expect(mockGetCredentials).toBeCalled();
-        expect(mockGetAwsDefaultServiceQuota).toBeCalled();
+        expect(mockGetServiceQuota).toBeCalled();
         expect(mockDescribeVpcs).toBeCalled();
 
         expect(thrownError).not.toBeUndefined();

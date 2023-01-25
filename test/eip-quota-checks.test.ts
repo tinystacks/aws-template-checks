@@ -2,7 +2,7 @@ const mockLoggerInfo = jest.fn();
 const mockGetCredentials = jest.fn();
 const mockDescribeAddresses = jest.fn();
 const mockEc2 = jest.fn();
-const mockGetAwsDefaultServiceQuota = jest.fn();
+const mockGetServiceQuota = jest.fn();
 const mockServiceQuotas = jest.fn();
 
 jest.mock('@tinystacks/precloud', () => {
@@ -49,7 +49,7 @@ describe('eip smoke tests', () => {
       describeAddresses: mockDescribeAddresses
     });
     mockServiceQuotas.mockReturnValue({
-      getAWSDefaultServiceQuota: mockGetAwsDefaultServiceQuota
+      getServiceQuota: mockGetServiceQuota
     });
   });
 
@@ -71,7 +71,7 @@ describe('eip smoke tests', () => {
       expect(mockLoggerInfo).not.toBeCalled();
       expect(mockGetCredentials).not.toBeCalled();
       expect(mockServiceQuotas).not.toBeCalled();
-      expect(mockGetAwsDefaultServiceQuota).not.toBeCalled();
+      expect(mockGetServiceQuota).not.toBeCalled();
       expect(mockEc2).not.toBeCalled();
       expect(mockDescribeAddresses).not.toBeCalled();
     });
@@ -83,7 +83,7 @@ describe('eip smoke tests', () => {
         properties: {}
       } as unknown as ResourceDiffRecord;
 
-      mockGetAwsDefaultServiceQuota.mockResolvedValueOnce({
+      mockGetServiceQuota.mockResolvedValueOnce({
         Quota: {
           Value: 5
         }
@@ -98,7 +98,7 @@ describe('eip smoke tests', () => {
       expect(mockLoggerInfo).toBeCalled();
       expect(mockLoggerInfo).toBeCalledWith('Checking Elastic IP service quota...');
       expect(mockGetCredentials).toBeCalled();
-      expect(mockGetAwsDefaultServiceQuota).toBeCalled();
+      expect(mockGetServiceQuota).toBeCalled();
       expect(mockDescribeAddresses).toBeCalled();
     });
     it('throws a QuotaError if new eip would exceed quota limit', async () => {
@@ -109,7 +109,7 @@ describe('eip smoke tests', () => {
         properties: {}
       } as unknown as ResourceDiffRecord;
       
-      mockGetAwsDefaultServiceQuota.mockResolvedValueOnce({
+      mockGetServiceQuota.mockResolvedValueOnce({
         Quota: {
           Value: 5
         }
@@ -127,7 +127,7 @@ describe('eip smoke tests', () => {
         expect(mockLoggerInfo).toBeCalled();
         expect(mockLoggerInfo).toBeCalledWith('Checking Elastic IP service quota...');
         expect(mockGetCredentials).toBeCalled();
-        expect(mockGetAwsDefaultServiceQuota).toBeCalled();
+        expect(mockGetServiceQuota).toBeCalled();
         expect(mockDescribeAddresses).toBeCalled();
 
         expect(thrownError).not.toBeUndefined();
