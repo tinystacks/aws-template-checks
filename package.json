@@ -1,6 +1,6 @@
 {
   "name": "@tinystacks/aws-template-checks",
-  "version": "0.0.2-local.3",
+  "version": "0.0.2",
   "description": "",
   "main": "dist/index.js",
   "files": [
